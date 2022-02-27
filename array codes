@@ -1,0 +1,138 @@
+#include <iostream>
+
+using namespace std;
+class Array {
+ private :
+  int size ;
+  int length ;
+  int * items ;
+ public:
+   Array(int arrsize){
+   items = new int [arrsize] ;
+   size = arrsize ;
+   length = 0 ;
+   }
+  fill(){
+      cout<<"how many item you want to enter now ?" <<endl ;
+      cin>>length ;
+     for(int i = 0 ; i<length; i++){
+        cout<<"enter value for item " << i +1<< " = " ;
+        cin>>items[i];
+     }
+    cout<<endl;
+   }
+   display(){
+       cout<< "the array content = ";
+       cout<< "[ ";
+       for(int i = 0 ; i<length; i++){
+            cout<< items[i]<<" ";
+       }
+       cout<< "]";
+       cout<<endl;
+       }
+       getSize() {
+        cout<<"the array Size is " <<size <<endl ;
+      }
+       getLength() {
+        cout<<"the array Length is " <<length <<endl;
+      }
+     int searchMethod(int value){
+       int itemIdx = -1 ;
+       for(int i = 0 ; i<length ; i ++ ){
+        if(items[i]==value){
+            itemIdx = i ;
+            break ;
+        }
+       }
+          return itemIdx ;
+      }
+     void add(int itemVal){
+       if(length <size){
+        items[length]= itemVal;
+        cout<<"item added successfully" <<endl ;
+        length++;
+       }
+       else{
+        cout<<"sorry there is no free space in array  " <<endl ;
+       }
+     }
+    insertItem(int index ,int newItem )
+    {
+      if(index>=0 && index <size)
+        {
+        for(int i = length ; i>=index ; i--)
+        {
+        items[i]=items[i-1];
+        }
+        items[index] = newItem ;
+        length ++ ;
+      }
+    }
+   void deleteItem(int index){
+    if(index<length && length>=0)
+    {
+    for(int i = index +1 ; i < length ; i++)
+     {
+            items[i-1 ] =items[i] ;
+     }
+     length--;
+    }
+    else
+    {
+       cout<<"Index in valid " << endl ;
+    }
+   }
+
+   enLargeSize(int newSize){
+    size = newSize ;
+
+   }
+
+
+};
+int main()
+{
+    int size ;
+    int newSize ;
+    int searchedItem ;
+    int addItem ;
+    int indexInsertItem ;
+    int indexDeleteItem ;
+    int valueInsertItem  ;
+    cout<<"enter size of array ";
+    cin>>size ;
+    Array arr(size);
+    arr.fill();
+    arr.display();
+    arr.getSize();
+    arr.getLength();
+    cout<<"enter value to search (if index = -1 it mean the item not found )" <<endl;
+    cin>>searchedItem;
+    cout<< "the item in index " <<arr.searchMethod(searchedItem)<<endl;
+    cout<< "enter new item" <<endl;
+    cin>>addItem;
+    arr.add(addItem) ;
+    arr.display();
+    cout<<"enter index of array to insert new item"<<endl ;
+    cin>>indexInsertItem ;
+    cout<<"enter value of new item "<<endl ;
+    cin>>valueInsertItem ;
+    arr.insertItem(indexInsertItem ,valueInsertItem );
+    arr.display();
+    cout<<"enter index of array to delete item"<<endl ;
+    cin>>indexDeleteItem ;
+    arr.deleteItem(indexDeleteItem);
+    arr.display();
+    cout<<"enter new size of array "<<endl ;
+    cin>>newSize ;
+    arr.enLargeSize(newSize);
+    arr.getSize();
+    arr.display();
+
+
+
+    return 0;
+
+}
+
+
